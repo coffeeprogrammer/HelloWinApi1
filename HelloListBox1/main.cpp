@@ -16,30 +16,26 @@ inline StateInfo* GetAppState(HWND hwnd)
 	return pState;
 }
 
-
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 HINSTANCE hInst ;
-
 HWND hListBox;
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
 	const wchar_t CLASS_NAME[] = L"Sample Window Class";
 	hInst = hInstance ;
-
 	WNDCLASS wc = { };
 
 	wc.lpfnWndProc = WindowProc;
 	wc.hInstance = hInstance;
 	wc.lpszClassName = CLASS_NAME;
 
-
 	RegisterClass(&wc);
 
-	// Create the window.
-
 	StateInfo *pState = new (std::nothrow) StateInfo;
+
+	// Create the window.
 
 	HWND hwnd = CreateWindowEx (
 		0,
@@ -61,20 +57,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ShowWindow(hwnd, nCmdShow);
 
 	// Run the message loop.
-
 	MSG msg = { };
 	while (GetMessage(&msg, NULL, 0, 0) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-
 	}
 	return 0;
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-
 	StateInfo *pState;
 	if (uMsg == WM_CREATE)
 	{
@@ -95,20 +88,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	case WM_CREATE:
 
-
-
 		hListBox = CreateWindow(L"LISTBOX", NULL,
-	LBS_MULTICOLUMN | LBS_HASSTRINGS |
-	WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL,		
-		10, 10, 200, 800, hwnd, NULL, hInst, NULL);
-		
-
+			LBS_MULTICOLUMN | LBS_HASSTRINGS |
+			WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL,		
+			10, 10, 200, 800, hwnd, NULL, hInst, NULL);
 		//SetWindowLongPtr(hListBox, GWL_WNDPROC, (LONG_PTR) ListBoxExampleProc);
-
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"first");
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"second");
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"third");
-
 		return 0;
 
 	case WM_PAINT:
@@ -116,26 +103,23 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hwnd, &ps);
 
-			// FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW+1));
+			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW+1));
 
 			EndPaint(hwnd, &ps);
 		}
 		return 0;
 	case WM_COMMAND:
+
 		return 0;
 	case WM_CLOSE:
 		if (MessageBox(hwnd, L"Really quit?", L"My application", MB_OKCANCEL) == IDOK)
 		{
-
 			DestroyWindow(hwnd);
 		}
 		return 0;
 	}
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
-
-
-
 
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -147,7 +131,6 @@ INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 			for (int i = 0; i < 5; i++)
 			{
 				int pos = (int)SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) TEXT("Chad"));
-
 				SendMessage(hListBox, LB_SETITEMDATA, pos, (LPARAM) i);
 			}
 		}
@@ -164,7 +147,4 @@ INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 	//	case IDOK:
 
 	//	}
-
-
-
 }
