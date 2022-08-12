@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloWinApi1", "HelloWinApi1\HelloWinApi1.vcproj", "{D8B0A2CF-EFC7-48CB-9BFB-3795E06202AE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloListBox1", "HelloListBox1\HelloListBox1.vcproj", "{50077E72-3E3F-4B3A-AC01-8682B971DB28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8B0A2CF-EFC7-48CB-9BFB-3795E06202AE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D8B0A2CF-EFC7-48CB-9BFB-3795E06202AE}.Debug|Win32.Build.0 = Debug|Win32
+		{D8B0A2CF-EFC7-48CB-9BFB-3795E06202AE}.Release|Win32.ActiveCfg = Release|Win32
+		{D8B0A2CF-EFC7-48CB-9BFB-3795E06202AE}.Release|Win32.Build.0 = Release|Win32
+		{50077E72-3E3F-4B3A-AC01-8682B971DB28}.Debug|Win32.ActiveCfg = Debug|Win32
+		{50077E72-3E3F-4B3A-AC01-8682B971DB28}.Debug|Win32.Build.0 = Debug|Win32
+		{50077E72-3E3F-4B3A-AC01-8682B971DB28}.Release|Win32.ActiveCfg = Release|Win32
+		{50077E72-3E3F-4B3A-AC01-8682B971DB28}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
