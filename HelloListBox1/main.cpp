@@ -9,6 +9,8 @@ struct StateInfo {
 	//
 };
 
+
+
 inline StateInfo* GetAppState(HWND hwnd)
 {
 	LONG_PTR ptr = GetWindowLongPtr(hwnd, GWLP_USERDATA);
@@ -16,10 +18,13 @@ inline StateInfo* GetAppState(HWND hwnd)
 	return pState;
 }
 
+#define IDC_LIST	1002
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 HINSTANCE hInst ;
 HWND hListBox;
+
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
@@ -89,9 +94,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 
 		hListBox = CreateWindow(L"LISTBOX", NULL,
-			LBS_MULTICOLUMN | LBS_HASSTRINGS |
+			LBS_MULTICOLUMN | LBS_HASSTRINGS | LBS_NOTIFY |
 			WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL,		
-			10, 10, 200, 800, hwnd, NULL, hInst, NULL);
+			10, 10, 200, 800, hwnd, (HMENU) IDC_LIST, hInst, NULL);
 		//SetWindowLongPtr(hListBox, GWL_WNDPROC, (LONG_PTR) ListBoxExampleProc);
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"first");
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"second");
@@ -109,6 +114,24 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		return 0;
 	case WM_COMMAND:
+		switch(LOWORD(wParam))
+		{
+		case IDC_LIST:
+
+			switch(HIWORD(wParam))
+			{
+			case LBN_SELCHANGE:
+				{
+					MessageBox(hwnd, L"here", L"caption", MB_OKCANCEL);
+					break;
+				}
+
+			}
+
+			break;
+
+
+		}
 
 		return 0;
 	case WM_CLOSE:
