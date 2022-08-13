@@ -4,6 +4,9 @@
 
 #include <windows.h>
 #include <iostream>
+//#include <string.h>
+#include <wchar.h>
+
 
 struct StateInfo {
 	//
@@ -19,11 +22,16 @@ inline StateInfo* GetAppState(HWND hwnd)
 }
 
 #define IDC_LIST	1002
+#define IDC_EDIT	1001
+#define IDC_BUTTON	1003
+
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 HINSTANCE hInst ;
 HWND hListBox;
+HWND hEdit;
+HWND hButton;
 
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
@@ -47,7 +55,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		CLASS_NAME,
 		L"Learn to Program Windows",
 		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+		//CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+		160, 160, 600, 400,
 		NULL,
 		NULL,
 		hInstance,
@@ -97,6 +106,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			LBS_MULTICOLUMN | LBS_HASSTRINGS | LBS_NOTIFY |
 			WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL,		
 			10, 10, 200, 800, hwnd, (HMENU) IDC_LIST, hInst, NULL);
+
+		//hEdit = CreateWindow (L"EDIT", NULL,
+		//	WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL |
+		//	WS_BORDER | ES_LEFT | ES_MULTILINE |
+		//	ES_AUTOHSCROLL | ES_AUTOVSCROLL,
+		//	220, 20, 300, 400, hwnd, (HMENU) IDC_EDIT,
+		//	hInst, NULL) ;
+
+		hEdit = CreateWindow (L"EDIT", NULL,
+			WS_CHILD | WS_VISIBLE | 
+			WS_BORDER | ES_LEFT,
+			210, 20, 140, 20, hwnd, (HMENU) IDC_EDIT,
+			hInst, NULL) ;
+
+		hButton = CreateWindow (L"BUTTON", L"Go",
+			WS_CHILD | WS_VISIBLE | WS_BORDER,
+			210, 50, 140, 40, hwnd, (HMENU) IDC_BUTTON,
+			hInst, NULL);
+
 		//SetWindowLongPtr(hListBox, GWL_WNDPROC, (LONG_PTR) ListBoxExampleProc);
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"first");
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"second");
@@ -117,20 +145,44 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		switch(LOWORD(wParam))
 		{
 		case IDC_LIST:
-
 			switch(HIWORD(wParam))
 			{
 			case LBN_SELCHANGE:
 				{
-					MessageBox(hwnd, L"here", L"caption", MB_OKCANCEL);
+					MessageBox(hwnd, L"here", L"caption", MB_OK);
 					break;
 				}
+			}
+			break;
+		case IDC_EDIT:
+			//MessageBox(hwnd, L"edit box", L"caption", MB_OK);
+			switch(HIWORD(wParam))
+			{
+			case EN_KILLFOCUS:
+				WCHAR text[256] = {0};
+				GetWindowText(hEdit, text, 256);
+				MessageBox(hwnd, text, L"caption", MB_OK);
+				break;
+			}
+			break;
+		case IDC_BUTTON:
+			//MessageBox(hwnd, L"button", L"caption", MB_OK);
+			switch(HIWORD(wParam))
+			{
+			case BN_CLICKED:
+				{
+					HDC hdc = GetDC(hwnd);
 
+					SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"clicked button");
+					LPCWSTR text = L"You must be smart, you know how to click a button";
+
+					BOOL v = TextOut(hdc, 300, 300, text, wcslen(text));
+					ReleaseDC(hwnd, hdc);
+				}
+				break;
 			}
 
 			break;
-
-
 		}
 
 		return 0;
