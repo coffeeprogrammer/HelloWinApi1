@@ -2,7 +2,11 @@
 #define UNICODE
 #endif
 
+     #pragma comment (lib, "comctl32")
+
 #include <windows.h>
+//#include <Shlwapi.h>
+#include <CommCtrl.h>
 #include <iostream>
 //#include <string.h>
 #include <wchar.h>
@@ -21,17 +25,20 @@ inline StateInfo* GetAppState(HWND hwnd)
 	return pState;
 }
 
-#define IDC_LIST	1002
-#define IDC_EDIT	1001
-#define IDC_BUTTON	1003
+#define IDC_LIST		1002
+#define IDC_EDIT		1001
+#define IDC_BUTTON		1003
+#define IDC_LISTVIEW	1004
 
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+HWND CreateListView (HWND hwndParent);
 HINSTANCE hInst ;
 HWND hListBox;
 HWND hEdit;
 HWND hButton;
+HWND hListView;
 
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
@@ -125,6 +132,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			210, 50, 140, 40, hwnd, (HMENU) IDC_BUTTON,
 			hInst, NULL);
 
+		hListView = CreateListView(hwnd);
+
 		//SetWindowLongPtr(hListBox, GWL_WNDPROC, (LONG_PTR) ListBoxExampleProc);
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"first");
 		SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) L"second");
@@ -196,30 +205,40 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+HWND CreateListView (HWND hwndParent) 
 {
-	switch(message)
-	{
-	case WM_INITDIALOG:
-		{
-			// Add items to list
-			for (int i = 0; i < 5; i++)
-			{
-				int pos = (int)SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM) TEXT("Chad"));
-				SendMessage(hListBox, LB_SETITEMDATA, pos, (LPARAM) i);
-			}
-		}
-		SetFocus(hListBox);
-		return TRUE;
-	case LB_ADDSTRING:
-		return TRUE;
+	INITCOMMONCONTROLSEX icex;           // Structure for control initialization.
+	icex.dwICC = ICC_LISTVIEW_CLASSES;
+	InitCommonControlsEx(&icex);
 
-	}
-	//case WM_COMMAND:
-	//	switch (LOWORD(wParam))
-	//	{
+	RECT rcClient;                       // The parent window's client area.
 
-	//	case IDOK:
+	GetClientRect (hwndParent, &rcClient); 
 
-	//	}
+	// Create the list-view window in report view with label editing enabled.
+/*	HWND hWndListView = CreateWindow(WC_LISTVIEW, 
+		L"",
+		WS_CHILD | LVS_REPORT | LVS_EDITLABELS,
+		0, 0,
+		rcClient.right - rcClient.left,
+		rcClient.bottom - rcClient.top,
+		hwndParent,
+		(HMENU)IDM_CODE_SAMPLES,
+		g_hInst,
+		NULL);*/ 
+
+
+	HWND hWndListView = CreateWindow(WC_LISTVIEW, 
+		L"",
+		WS_VISIBLE | WS_CHILD | LVS_REPORT | LVS_EDITLABELS,
+		360, 20,
+		rcClient.right - 100,
+		rcClient.bottom - 100,
+		hwndParent,
+		(HMENU)IDC_LISTVIEW,
+		hInst,
+		NULL); 
+
+	return (hWndListView);
+
 }
