@@ -287,8 +287,8 @@ HWND CreateListView(HINSTANCE hInstance, HWND hwndParent)
 		//WS_BORDER | 
 		WS_VISIBLE |
 		LVS_AUTOARRANGE |
-		LVS_REPORT | 
-		LVS_OWNERDATA;
+		LVS_REPORT;// | 
+		//LVS_OWNERDATA;
 
 	hwndListView = CreateWindowEx(
 				//WS_EX_CLIENTEDGE,          // ex style
@@ -310,6 +310,7 @@ HWND CreateListView(HINSTANCE hInstance, HWND hwndParent)
 
 	// ResizeListView(hwndListView, hwndParent);
 
+	/*
 	//set the image lists
 	himlSmall = ImageList_Create(16, 16, ILC_COLORDDB | ILC_MASK, 1 ,0);
 	himlLarge = ImageList_Create(32, 32, ILC_COLORDDB | ILC_MASK, 1, 0);
@@ -331,6 +332,7 @@ HWND CreateListView(HINSTANCE hInstance, HWND hwndParent)
 		ListView_SetImageList(hwndListView, himlLarge, LVSIL_NORMAL);
 
 	}
+	*/
 	return hwndListView;
 }
 
@@ -361,12 +363,23 @@ void InsertListViewItems()
 	GetWindowText(hCol4Edit, col4, 128);
 	//MessageBox(NULL, L"here", L"caption", MB_OK);
 
-	LPLVITEM lvI;
-	ZeroMemory(lvI, sizeof(LPLVITEM));
+	LVITEM lvI;
 
-	lvI->pszText = colMain;
+	//lvI.mask		= LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
+	lvI.mask	= LVIF_TEXT;
+	lvI.stateMask	= 0;
+	lvI.iSubItem	= 0;
+	lvI.state		= 0;
+	lvI.pszText = L"test";
+	lvI.iItem	= 0;
+	//lvI.iImage	= 0;
 
-	ListView_InsertItem(hListView, lvI);
+	ListView_InsertItem(hListView, &lvI);
+	//SendMessage(hListView,LVM_INSERTITEM, 0, (LPARAM)&lvI);
+	lvI.iSubItem	= 3;
+	lvI.pszText = L"Test2";
+
+	ListView_SetItem(hListView, &lvI);
 
 
 }
