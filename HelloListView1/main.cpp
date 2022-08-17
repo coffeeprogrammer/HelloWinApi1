@@ -287,7 +287,7 @@ HWND CreateListView(HINSTANCE hInstance, HWND hwndParent)
 		//WS_BORDER | 
 		WS_VISIBLE |
 		LVS_AUTOARRANGE |
-		LVS_REPORT;// | 
+		LVS_REPORT;
 		//LVS_OWNERDATA;
 
 	hwndListView = CreateWindowEx(
@@ -307,6 +307,8 @@ HWND CreateListView(HINSTANCE hInstance, HWND hwndParent)
 
 	if(!hwndListView)
 		return NULL;
+
+	ListView_SetExtendedListViewStyle(hwndListView, LVS_EX_FULLROWSELECT);
 
 	// ResizeListView(hwndListView, hwndParent);
 
@@ -365,8 +367,8 @@ void InsertListViewItems()
 
 	LVITEM lvI;
 
-	//lvI.mask		= LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
-	lvI.mask	= LVIF_TEXT;
+	lvI.mask		= LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
+	//lvI.mask	= LVIF_TEXT;
 	lvI.stateMask	= 0;
 	lvI.iSubItem	= 0;
 	lvI.state		= 0;
@@ -376,7 +378,7 @@ void InsertListViewItems()
 
 	ListView_InsertItem(hListView, &lvI);
 	//SendMessage(hListView,LVM_INSERTITEM, 0, (LPARAM)&lvI);
-	lvI.iSubItem	= 3;
+	lvI.iSubItem	= 1;
 	lvI.pszText = L"Test2";
 
 	ListView_SetItem(hListView, &lvI);
