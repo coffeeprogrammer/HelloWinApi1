@@ -16,8 +16,6 @@ struct StateInfo {
 	//
 };
 
-
-
 inline StateInfo* GetAppState(HWND hwnd)
 {
 	LONG_PTR ptr = GetWindowLongPtr(hwnd, GWLP_USERDATA);
@@ -30,7 +28,6 @@ inline StateInfo* GetAppState(HWND hwnd)
 #define IDC_BUTTON		1003
 #define IDC_LISTVIEW	1004
 
-
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 HWND CreateListView (HWND hwndParent);
@@ -39,7 +36,6 @@ HWND hListBox;
 HWND hEdit;
 HWND hButton;
 HWND hListView;
-
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
@@ -227,7 +223,6 @@ HWND CreateListView (HWND hwndParent)
 		g_hInst,
 		NULL);*/ 
 
-
 	HWND hWndListView = CreateWindow(WC_LISTVIEW, 
 		L"",
 		WS_VISIBLE | WS_CHILD | LVS_REPORT | LVS_EDITLABELS,
@@ -240,5 +235,4 @@ HWND CreateListView (HWND hwndParent)
 		NULL); 
 
 	return (hWndListView);
-
 }
