@@ -11,6 +11,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloTreeView1", "HelloTree
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloListView1", "HelloListView1\HelloListView1.vcproj", "{7474A7F5-A6DD-49B3-A39C-62BBAECCA4ED}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloTab1", "HelloTab1\HelloTab1.vcproj", "{E6DF005A-812E-4884-8919-A94A38FE6460}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleWriteReadFile1", "ConsoleWriteReadFile1\ConsoleWriteReadFile1.vcproj", "{D369BC0C-9777-4E71-8780-C25C005614F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +41,14 @@ Global
 		{7474A7F5-A6DD-49B3-A39C-62BBAECCA4ED}.Debug|Win32.Build.0 = Debug|Win32
 		{7474A7F5-A6DD-49B3-A39C-62BBAECCA4ED}.Release|Win32.ActiveCfg = Release|Win32
 		{7474A7F5-A6DD-49B3-A39C-62BBAECCA4ED}.Release|Win32.Build.0 = Release|Win32
+		{E6DF005A-812E-4884-8919-A94A38FE6460}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E6DF005A-812E-4884-8919-A94A38FE6460}.Debug|Win32.Build.0 = Debug|Win32
+		{E6DF005A-812E-4884-8919-A94A38FE6460}.Release|Win32.ActiveCfg = Release|Win32
+		{E6DF005A-812E-4884-8919-A94A38FE6460}.Release|Win32.Build.0 = Release|Win32
+		{D369BC0C-9777-4E71-8780-C25C005614F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D369BC0C-9777-4E71-8780-C25C005614F6}.Debug|Win32.Build.0 = Debug|Win32
+		{D369BC0C-9777-4E71-8780-C25C005614F6}.Release|Win32.ActiveCfg = Release|Win32
+		{D369BC0C-9777-4E71-8780-C25C005614F6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

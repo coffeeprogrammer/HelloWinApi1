@@ -9,7 +9,6 @@ https://github.com/microsoft/Windows-classic-samples/tree/main/Samples/Win7Sampl
 */
 
 #include <windows.h>
-#include <windows.h>
 #include <CommCtrl.h>
 //#include <iostream>
 #include <wchar.h>
@@ -80,7 +79,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-
 	}
 	return 0;
 }
@@ -140,10 +138,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			hCol4Edit = CreateWindowEx (NULL, L"EDIT", NULL, dwEditStyle,
 				480, 390, 140, 20,
 				hwnd, NULL, g_hInst, NULL);
-
-
-
-
 		}
 		
 		return 0;
@@ -382,7 +376,6 @@ void InsertListViewItems()
 	lvI.pszText = L"Test2";
 
 	ListView_SetItem(hListView, &lvI);
-
 
 }
 
